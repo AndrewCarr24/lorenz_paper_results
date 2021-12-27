@@ -15,17 +15,10 @@ source("mcib_func.R")
 source("lorenz_int.R")
 
 # Get income statistics estimated by Lorenz interpolation, CDF interpolation, and MCIB
-income_statistics <- get_income_statistics(input_data = pums_data, input_func = lorenz_int, num_cores = 11)
+income_statistics <- get_income_statistics(input_data = pums_data, input_func = lorenz_int, sum_stats = TRUE, num_cores = 11)
 
 
-
-
-
-
-
-
-
-
+income_statistics %>% select(contains("at")) %>% round(3)
 
 
 
