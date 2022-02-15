@@ -74,7 +74,7 @@ get_income_statistics <- function(input_data, input_func, sum_stats, num_cores){
       sample_puma <- sample_puma[rep(seq_len(nrow(sample_puma)), sample_puma$wt),] 
       ex_freqs <- sample_puma %>% group_incomes() %>% group_by(income_cat) %>% summarise(n = n(), .groups = 'drop_last') %>% .[["n"]]
       ex_bounds <- c(0, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000, 60000, 75000, 100000, 125000, 150000, 200000)
-      ex_slope_parm <- .9
+      ex_slope_parm <- .1
       
       # When mean is known
       ex_G <- sum(sample_puma$income)/length(sample_puma$income)
