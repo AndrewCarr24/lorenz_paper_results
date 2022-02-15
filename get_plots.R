@@ -274,15 +274,17 @@ seg4 <- get_segment(c(x_4, y_4), slopes[4], len = .03)
 p1a <- ggplot(lorenz_df) + geom_vline(aes(xintercept = x), lty = 'dashed', size = .25) + 
   geom_hline(mapping = aes(yintercept = 0)) +
   geom_vline(mapping = aes(xintercept = 0)) + 
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
   geom_point(data = tibble(x = 0, y = 0), mapping = aes(x, y), size = .75) + 
   scale_x_continuous(limits = c(-.01,1), expand = c(0, .01)) +
   scale_y_continuous(limits = c(0,1), expand = c(0, .01)) + 
   ylab("") + xlab("") + 
-  geom_segment(data = seg1, mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg2, mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg3, mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) +
-  scale_colour_discrete(guide=FALSE)
+  geom_segment(data = seg1, mapping = aes(x = x1, y = y1, xend = x2, yend = y2), color = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg2, mapping = aes(x = x1, y = y1, xend = x2, yend = y2), color = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg3, mapping = aes(x = x1, y = y1, xend = x2, yend = y2), color = "grey", lty = 'solid', size = .5) +
+  scale_colour_discrete(guide=FALSE) + 
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) 
+
 
 ##
 
@@ -298,19 +300,21 @@ first_seg_line <- tibble(x = xs, y = ys)
 p1b <- ggplot(lorenz_df) + geom_vline(aes(xintercept = x), lty = 'dashed', size = .25) + 
   geom_hline(mapping = aes(yintercept = 0)) +
   geom_vline(mapping = aes(xintercept = 0)) + 
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
   geom_point(data = tibble(x = 0, y = 0), mapping = aes(x, y), size = .75) + 
   scale_x_continuous(limits = c(-.01,1), expand = c(0, .01)) +
   scale_y_continuous(limits = c(0,1), expand = c(0, .01)) + 
   ylab("") + xlab("") + 
-  geom_segment(data = seg1, mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg2, mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg3, mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) +
-  geom_segment(data = seg4, mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) +
+  geom_segment(data = seg1, mapping = aes(x = x1, y = y1, xend = x2, yend = y2), lty = 'solid', colour = "grey", size = .5) + 
+  geom_segment(data = seg2, mapping = aes(x = x1, y = y1, xend = x2, yend = y2), lty = 'solid', colour = "grey", size = .5) + 
+  geom_segment(data = seg3, mapping = aes(x = x1, y = y1, xend = x2, yend = y2), lty = 'solid', colour = "grey", size = .5) +
+  geom_segment(data = seg4, mapping = aes(x = x1, y = y1, xend = x2, yend = y2), lty = 'solid', colour = "grey", size = .5) +
   scale_colour_discrete(guide=FALSE) +
   geom_line(data = first_seg_line, mapping = aes(x = xs, y = ys)) + 
   geom_point(data = tibble(x = x_2, y = coefs_lst[[1]][1]*x_2^3 + coefs_lst[[1]][2]*x_2^2 + coefs_lst[[1]][3]*x_2 + coefs_lst[[1]][4]), 
-             mapping = aes(x, y), size = .75)
+             mapping = aes(x, y), size = .75) + 
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) 
+
 
 
 ##
@@ -345,34 +349,35 @@ y_val <- a*x_val^3 + b*x_val^2 + c*x_val + d
 p1c <- ggplot(lorenz_df) + geom_vline(aes(xintercept = x), lty = 'dashed', size = .25) + 
   geom_hline(mapping = aes(yintercept = 0)) +
   geom_vline(mapping = aes(xintercept = 0)) + 
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
   geom_point(data = tibble(x = 0, y = 0), mapping = aes(x, y), size = .75) + 
   scale_x_continuous(limits = c(-.01,1), expand = c(0, .01)) +
   scale_y_continuous(limits = c(0,1), expand = c(0, .01)) + 
   ylab("") + xlab("") + 
   geom_line(data = next_seg_line, mapping = aes(x = x, y = y)) + 
-  geom_segment(data = seg1, mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg2, mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[1]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[2]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[3]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[4]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[5]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[6]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[7]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[8]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[9]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[10]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[11]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[12]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[13]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[14]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
-  geom_segment(data = seg_lst[[15]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), lty = 'solid', size = .5) + 
+  geom_segment(data = seg1, mapping = aes(x = x1, y = y1, xend = x2, yend = y2), lty = 'solid', colour = "grey", size = .5) + 
+  geom_segment(data = seg2, mapping = aes(x = x1, y = y1, xend = x2, yend = y2), lty = 'solid', colour = "grey", size = .5) + 
+  geom_segment(data = seg_lst[[1]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[2]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[3]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[4]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[5]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[6]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[7]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[8]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[9]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[10]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[11]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[12]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[13]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[14]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
+  geom_segment(data = seg_lst[[15]], mapping = aes(x = x1, y = y1, xend = x2, yend = y2), colour = "grey", lty = 'solid', size = .5) + 
   geom_point(tibble(xval=1, yval=1), mapping = aes(xval, yval), size = .75) + 
   scale_colour_discrete(guide=FALSE) +
   geom_line(data = first_seg_line, mapping = aes(x = xs, y = ys)) + 
   geom_label_repel(data = tibble(xtext = .99, ytext = .99, lab = "Special Cubic For Top Bin"), mapping = aes(xtext, ytext, label = lab), 
-                   nudge_x = -.4, nudge_y = -.15, size = 2.5)
+                   nudge_x = -.4, nudge_y = -.15, size = 2.5) + 
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) 
 
 
 
